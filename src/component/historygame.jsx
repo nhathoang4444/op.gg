@@ -6,6 +6,7 @@ import RecentPlayerList from "./recentplayed/recentplayer";
 import Game from "./game";
 import RankedSoloDuo from "./rankedSoloDuo";
 import Summary from "./summaryplayed";
+import Mastery from "./Mastery";
 
 export default function Gamehistory() {
   return (
@@ -18,6 +19,9 @@ export default function Gamehistory() {
           </div>
           <div>
             <Summary />
+          </div>
+          <div>
+            <Mastery />
           </div>
         </div>
         {/* right body */}
