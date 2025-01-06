@@ -64,7 +64,7 @@ export default function Gamehistory() {
             </div>
           </div>
           {/* game history  */}
-          <div className="flex">
+          <div className="flex mt-[8px] ">
             {/* thanh màu  */}
             <Game />
           </div>
