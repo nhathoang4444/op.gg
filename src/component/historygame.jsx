@@ -13,7 +13,7 @@ export default function Gamehistory() {
     <>
       <div className="mx-auto flex mt-2 gap-2">
         {/* left body */}
-        <div className="w-[332px] h-[1964px]">
+        <div className="w-[332px] h-[1500px]">
           <div>
             <RankedSoloDuo />
           </div>
