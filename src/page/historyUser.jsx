@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../component/header";
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import Introduce from "../component/introduce";
 import Gamehistory from "../component/historygame";
+import ModalSeachUser from "../modal/modalSearchUser";
 export default function HistoryUser() {
-  // Use uppercase for the component name
+  const [modalSearchUserOpen, setModalSearchUserOpen] = useState(false); // Kiểm soát trạng thái modal
+  const [isModalReady, setIsModalReady] = useState(false); // Trạng thái để đảm bảo modal không bị nháy
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Kiểm tra nếu click không phải vào input hoặc modal
+      if (
+        !event.target.closest(".input-search-user") && // Không thuộc input
+        !event.target.closest(".modal-search-user") // Không thuộc modal
+      ) {
+        setModalSearchUserOpen(false); // Đóng modal
+      }
+    };
+
+    if (modalSearchUserOpen) {
+      setIsModalReady(true); // Đảm bảo modal sẵn sàng hiển thị
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      setTimeout(() => setIsModalReady(false), 200); // Trì hoãn để tránh nháy
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [modalSearchUserOpen]);
+
   return (
     <>
       {/* header  */}
@@ -20,6 +47,8 @@ export default function HistoryUser() {
               src="https://meta-static.op.gg/logo/image/21ab73466256a60bb14d0f775c8fa450.png?image=q_auto:good,f_webp,w_580&v=1734579514945"
               alt="logo"
             />
+
+            {/* Search User  */}
             <div className="flex">
               <div className="flex ">
                 <button className="rounded-l-sm w-[60px] gap-1 mx-auto flex justify-center items-center h-[32px] bg-[#ECF2FF]">
@@ -29,7 +58,21 @@ export default function HistoryUser() {
                   </i>
                 </button>
               </div>
-              <input className="w-[840px] h-[32px]" type="text" />
+              <div className="relative w-[840px] flex justify-center items-center  h-[32px] ">
+                {" "}
+                <input
+                  className="w-[840px] flex flex-col h-[32px]"
+                  type="text"
+                  onClick={() => setModalSearchUserOpen(true)} // Mở modal khi click vào input
+                />
+                <div className="absolute top-[2px] z-[1000] left-[0px]">
+                  {modalSearchUserOpen && (
+                    <div className="modal-search-user absolute top-[33px] z-[1000]">
+                      <ModalSeachUser />
+                    </div>
+                  )}
+                </div>
+              </div>
               <div>
                 <button className="w-[60px]  h-[32px] bg-white rounded-r-sm  flex justify-center items-center">
                   <img
